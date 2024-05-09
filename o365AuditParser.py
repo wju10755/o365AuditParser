@@ -18,6 +18,7 @@ import json
 import logging
 import pathlib
 import sys
+import os
 from collections import defaultdict
 
 VERSION = '1.0'
@@ -28,18 +29,17 @@ if __name__=='__main__':
 
     # parse command line arguments
     parser = argparse.ArgumentParser(description='o365 Audit Log Extractor')
-    parser.add_argument(help = 'File/Directory to process', type=str, dest='input' )
-    parser.add_argument('-o', '--output', help='Output directory, defaults to current directory', type=pathlib.Path, default=pathlib.Path.cwd(), dest='output')
+    parser.add_argument('-o', '--output', help='Output directory, defaults to current directory', type=pathlib.Path, default=pathlib.Path(os.getcwd() + '/output'), dest='output')
     parser.add_argument('-p', '--prefix', help='Prefix for output files, defaults to o365AuditLog', type=str, default='o365AuditLog', dest='prefix')
     parser.add_argument('-f', '--format', help='Output file format, defaults to csv', type=str, choices=['csv', 'json' ], default='csv', dest='format')
-    outputOptions = parser.add_mutually_exclusive_group(required=True)
+    outputOptions = parser.add_mutually_exclusive_group(required=False)
     outputOptions.add_argument('-w', '--workload', help='Generate individual output files per workload', action='store_true', dest='workload')
-    outputOptions.add_argument('-c', '--combined', help='Generate one output file', action='store_true', dest='combined')
+    outputOptions.add_argument('-c', '--combined', help='Generate one output file', action='store_true', dest='combined', default=True)
     parser.add_argument('-v', '--verbose', help='Enable debug logging', action='store_true', dest='verbose')
     parser.add_argument('--version', action='version',version='{0} {1}'.format(NAME, VERSION))
     args = parser.parse_args()
-
-            
+    args.input = input("Please enter the File/Directory to process: ")
+       
     # configure logging
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
