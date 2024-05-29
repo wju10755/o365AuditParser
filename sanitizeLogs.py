@@ -4,8 +4,6 @@
 
 Redact sensitive fields from Office365 Audit logs
 
-Author: Ian Day
-Initial Release: December 8 2019 Version 1.0
 '''
 
 import csv
