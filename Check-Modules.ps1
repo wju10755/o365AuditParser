@@ -12,14 +12,8 @@ if ((Get-Packageprovider -Name NuGet) -eq $null) {
 } else {
     #Write-Output 'NuGet package provider is installed!'
 }
-
-#Write-Output ' Done.'
-
-
-Add-Type -AssemblyName System.Windows.Forms
+# Accept package provider installation
 [System.Windows.Forms.SendKeys]::SendWait('~');
-#Write-Host
-#Write-Host
 #Write-Host 'Validating Availability of PSWindows Update Module, Please Wait...' 
 if ((Get-Module -Name PSWindowsUpdate) -eq $null) {
     #Write-Host -ForegroundColor Yellow 'PSWindowsUpdate module not found!'
